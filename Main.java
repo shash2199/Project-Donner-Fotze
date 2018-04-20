@@ -26,8 +26,8 @@ public class Main extends Application {
 		   window = primaryStage;
 		   
 		   
-		   TextField t1 = new TextField ();
-		   TextField t2 = new TextField ();        
+	   TextField t1 = new TextField ();
+	   TextField t2 = new TextField ();        
            TextField t3 = new TextField ();
            TextField t4 = new TextField ();
            TextField t5 = new TextField ();
@@ -57,10 +57,10 @@ public class Main extends Application {
            TextField t29 = new TextField ();           
            TextField t30 = new TextField ();
            
-		   Label label0 = new Label("Team 1");
-		   Label label1 = new Label("Team 2");
-		   Label label2 = new Label("Team 3");
-		   Label label3 = new Label("Team 4");
+	   Label label0 = new Label("Team 1");
+	   Label label1 = new Label("Team 2");
+	   Label label2 = new Label("Team 3");
+	   Label label3 = new Label("Team 4");
            Label label4 = new Label("Team 5");
            Label label5 = new Label("Team 6");
            Label label6 = new Label("Team 7");
