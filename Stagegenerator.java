@@ -16,7 +16,7 @@ public class Stagegenerator {
 
     public Scene Sixteenplayers() {
         
-           Match matches[] = new Match[3];
+           Match matches[] = new Match[1];
            HBox matchbox[]= new HBox[matches.length];
            for(int i = 0; i<matches.length;i++) {
                matches[i] = new Match();
@@ -78,7 +78,7 @@ public class Stagegenerator {
             center.setLayoutX(600);center.setLayoutY(170);
             outside.getChildren().addAll(left,left2,center,right2,right);
             
-        } else {  // case for 4
+        } else if(matches.length==3){  // case for 4
             VBox left = new VBox(100);
             VBox right = new VBox(100);
             left.getChildren().addAll(matchbox[0]);
@@ -90,8 +90,11 @@ public class Stagegenerator {
             center.getChildren().addAll(matchbox[2]);
             center.setLayoutX(600);center.setLayoutY(170);
             outside.getChildren().addAll(left,center,right);
+        } else if (matches.length==1) {//case for 2 team
+            center.getChildren().addAll(matchbox[0]);
+            center.setLayoutX(600);center.setLayoutY(170);
+            outside.getChildren().addAll(center);
         }
-        
         
         
         Scene scene1 = new Scene(outside,1390,450);
