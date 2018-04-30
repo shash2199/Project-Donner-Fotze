@@ -14,12 +14,12 @@ public class Stagegenerator {
 
     };
 
-    public Scene Sixteenplayers() {
+    public Scene Scene() {
         
-           Match matches[] = new Match[1];
+           Match matches[] = new Match[15];
            HBox matchbox[]= new HBox[matches.length];
            for(int i = 0; i<matches.length;i++) {
-               matches[i] = new Match();
+               matches[i] = new Match(i);
            }
            
            for(int i = 0; i<matches.length;i++) {
@@ -27,13 +27,13 @@ public class Stagegenerator {
                HBox bootom  = new HBox(10);
                VBox holds = new VBox(10);
                HBox bigbox = new HBox(10);
-               matches[i].getText1().setMaxWidth(50);
-               matches[i].getText2().setMaxWidth(50);
-               matches[i].getButton().setMinHeight(62);;
-               top.getChildren().addAll(matches[i].getLabel1(),matches[i].getText1());
-               bootom.getChildren().addAll(matches[i].getLabel2(),matches[i].getText2());
+               matches[i].teamOneIn.setMaxWidth(50);
+               matches[i].teamTwoIn.setMaxWidth(50);
+               matches[i].submitButton.setMinHeight(62);;
+               top.getChildren().addAll(matches[i].teamOneLabel,matches[i].teamOneIn);
+               bootom.getChildren().addAll(matches[i].teamTwoLabel,matches[i].teamTwoIn);
                holds.getChildren().addAll(top,bootom);
-               bigbox.getChildren().addAll(holds,matches[i].getButton());
+               bigbox.getChildren().addAll(holds,matches[i].submitButton);
                matchbox[i] = bigbox;
            }
            
