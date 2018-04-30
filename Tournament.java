@@ -71,7 +71,7 @@ public class Tournament {
 			}
 			d++;
 			}
-		while(d < matches.length) {
+		while(d >= 0) {
 			matches[d] = new Match(d);
 		}
 		for(int i = matches.length-1; i > 0; i--) {
