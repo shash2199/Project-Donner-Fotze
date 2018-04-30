@@ -59,16 +59,24 @@ public class Tournament {
 	  *  store them into the data structure (Array)
 	  */
 	 public void seed(){
-	 	int firstRoundMatchNum = teams.length / 2;
+	 	int d = 0;
+		int firstRoundMatchNum = teams.length / 2;
 		matches = new Match[teams.length - 1];
 		for(int i = 0; i < firstRoundMatchNum; i++) {
 			if(i <= firstRoundMatchNum/2 - 1) {
-				matches[i] = new Match(teams[i*2], teams[teams.length - (i*2+1)],0);
+				matches[matches.length - (i+1)] = new Match(teams[i*2], teams[teams.length - (i*2+1)],matches.length - (i+1));
 			}
 			if(i > firstRoundMatchNum/2 - 1) {
-				matches[firstRoundMatchNum - (i-3)] = new Match(teams[(i-4)*2 + 1], teams[teams.length - ((i-3)*2)],0);
+				matches[matches.length - (firstRoundMatchNum - (i-3)+1)] = new Match(teams[(i-4)*2 + 1], teams[teams.length - ((i-3)*2)],matches.length - (firstRoundMatchNum - (i-3)+1));
 			}
+			d++;
 			}
+		while(d < matches.length) {
+			matches[d] = new Match(d);
+		}
+		for(int i = matches.length-1; i > 0; i--) {
+			matches[i].setNext(matches[(i-1)/2]);
+		}
 	 }
 	 
 	 /**
