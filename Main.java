@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+
+
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -25,8 +27,9 @@ public class Main extends Application {
 		try {
 		   window = primaryStage;
 		   
+		   
 		   Stagegenerator newstage = new Stagegenerator();
-		   scene1 = newstage.Sixteenplayers();
+		   scene1 = newstage.Scene();
 		 
 	           window.setScene(scene1);
 	           window.setTitle("hello");
