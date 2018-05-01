@@ -123,6 +123,13 @@ public class Match implements MatchADT {
         if (scoreOne == scoreTwo) throw new IllegalArgumentException();
         return (scoreOne > scoreTwo) ? teamOne : teamTwo;
     }
-
+    
+    public Label getLabelOne() { return teamOneLabel; }
+    public Label getLabelTwo() { return teamTwoLabel; }
+    public TextField getTextOne() { return teamOneIn; }
+    public TextField getTextTwo() { return teamTwoIn; }
+    public Button getSubmitButton() { return submitButton; }
+    public void setNext(Match n) { next = n; }
+    public Match getNext() { return next; }
       
 }
