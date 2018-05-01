@@ -108,7 +108,69 @@ public class Match implements MatchADT {
     public Match(int mNum) {
         matchNum = mNum;
         // Event listeners and handlers
-
+        
+        // Event listeners and handlers
+        teamOneIn.setOnAction(
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent e) {
+                                scoreOne = Integer.parseInt(teamOneIn.getText());
+                            }});
+        teamTwoIn.setOnAction(
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent e) {
+                                scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                            }});
+        submitButton.setOnAction(
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                if (next == null) { // if this game is the final game
+                                    Team champion = getWinner();
+                                    Team secondPlace;
+                                    if (teamOne.equals(champion)) secondPlace = teamTwo;
+                                    else secondPlace = teamOne;
+                                    // Compute third place team
+                                    Team thirdPlace;
+                                    Team semiOneLoser;
+                                    int loserOneScore;
+                                    if (semifinals[0].scoreOne > semifinals[0].scoreTwo) {
+                                        semiOneLoser = teamTwo;
+                                        loserOneScore = scoreTwo;
+                                    }
+                                    else { 
+                                        semiOneLoser = teamOne;
+                                        loserOneScore = scoreOne;
+                                    }
+                                    Team semiTwoLoser;
+                                    int loserTwoScore;
+                                    if (semifinals[1].scoreOne > semifinals[1].scoreTwo) {
+                                        semiTwoLoser = teamTwo;
+                                        loserTwoScore = scoreTwo;
+                                    }
+                                    else { 
+                                        semiTwoLoser = teamOne;
+                                        loserTwoScore = scoreOne;
+                                    }
+                                    if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
+                                    else thirdPlace = semiTwoLoser;
+                                    Alert results = new Alert(AlertType.INFORMATION);
+                                    results.setTitle("Tournament Results");
+                                    results.setHeaderText(null);
+                                    results.setContentText("Champion: " + champion.getName() + "\n"
+                                                  + "Second place: " + secondPlace.getName() + "\n"
+                                                  + "Third place: " + thirdPlace.getName());
+                                    results.showAndWait();
+                                } else if (next.next == null) { // if this game is semifinal
+                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
+                                    else next.teamOne = getWinner();
+                                    storeSemifinal();
+                                } else {
+                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
+                                    else next.teamOne = getWinner();
+                                }
+                            }});
     }
     
     /** Return TeamOne's score. */
