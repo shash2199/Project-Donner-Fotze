@@ -58,23 +58,48 @@ public class Tournament {
 	  * Responsible for seeding the teams according to their team ranks and
 	  *  store them into the data structure (Array)
 	  */
-	 public void seed() {
+	public void seed() {
+		/*
+		 * this is the number of matches in the first round 
+		 */
 		int firstRoundMatchNum = teams.length / 2;
 		matches = new Match[teams.length - 1];
+		/*
+		 * keeps track of how many matches have been my initializes
+		 */
 		int d = matches.length-1;
+		/*
+		 * loop initializes the matches by separating the two closest teams to the two ends of the first round
+		 *  subsection of the array and the two last place teams to the two ends of the first round subsection
+		 *  of the first round array. As the middle of the first round subsection of the array is approached
+		 *  the seeds of the teams playing in the matches approach each other.
+		 */
 		for(int i = 0; i < firstRoundMatchNum; i++) {
+			/*
+			 * initializes the first half of the first round matches
+			 */
 			if(i <= firstRoundMatchNum/2 - 1) {
 				matches[matches.length - (i+1)] = new Match(teams[i*2], teams[teams.length - (i*2+1)],matches.length - (i+1));
 			}
+			/*
+			 * initializes the second half of the first round matches
+			 */
 			if(i > firstRoundMatchNum/2 - 1) {
 				matches[matches.length - (firstRoundMatchNum - (i-4))] = new Match(teams[(i-4)*2 + 1], teams[teams.length - ((i-3)*2)],matches.length - (firstRoundMatchNum - (i-3)+1));
 			}
 			d--;
 			}
+		/*
+		 * initializes the rest of the matches
+		 */
 		while(d > 0) {
 			d--;
-			matches[d] = new Match(d);	
+			matches[d] = new Match(d);
+			
 		}
+		/*
+		 * sets the next match for each match besides the one at index 0 which has no next match
+		 */
 		for(int i = matches.length-1; i > 0; i--) {
 			matches[i].setNext(matches[(i-1)/2]);
 		}
