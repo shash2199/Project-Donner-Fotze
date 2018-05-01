@@ -111,4 +111,10 @@ public class Tournament {
 	  * button is pressed.
 	  */
 	 public void update();
+	public Team[] getTeam(){
+		return teams;	
+	}
+	public Match[] getMatch(){
+		return matches;
+	}
 }
