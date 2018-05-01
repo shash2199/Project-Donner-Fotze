@@ -2,9 +2,11 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class Match implements MatchADT {
     private Team teamOne;
@@ -18,6 +20,8 @@ public class Match implements MatchADT {
     private TextField teamTwoIn = new TextField();
     private Match next;
     private int matchNum;
+      
+    static Match[] semifinals = new Match[2];
     
     /**
      * Create a new Match object provided the two teams. Initialize the two labels
@@ -30,8 +34,6 @@ public class Match implements MatchADT {
         matchNum = mNum;
         teamOne = t1;
         teamTwo = t2;
-        teamOneIn = new TextField();
-        teamTwoIn = new TextField();
         teamOneLabel = new Label(teamOne.getName());
         teamTwoLabel = new Label(teamTwo.getName());
         
@@ -52,8 +54,50 @@ public class Match implements MatchADT {
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                else next.teamOne = getWinner();
+                                if (next == null) { // if this game is the final game
+                                    Team champion = getWinner();
+                                    Team secondPlace;
+                                    if (teamOne.equals(champion)) secondPlace = teamTwo;
+                                    else secondPlace = teamOne;
+                                    // Compute third place team
+                                    Team thirdPlace;
+                                    Team semiOneLoser;
+                                    int loserOneScore;
+                                    if (semifinals[0].scoreOne > semifinals[0].scoreTwo) {
+                                        semiOneLoser = teamTwo;
+                                        loserOneScore = scoreTwo;
+                                    }
+                                    else { 
+                                        semiOneLoser = teamOne;
+                                        loserOneScore = scoreOne;
+                                    }
+                                    Team semiTwoLoser;
+                                    int loserTwoScore;
+                                    if (semifinals[1].scoreOne > semifinals[1].scoreTwo) {
+                                        semiTwoLoser = teamTwo;
+                                        loserTwoScore = scoreTwo;
+                                    }
+                                    else { 
+                                        semiTwoLoser = teamOne;
+                                        loserTwoScore = scoreOne;
+                                    }
+                                    if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
+                                    else thirdPlace = semiTwoLoser;
+                                    Alert results = new Alert(AlertType.INFORMATION);
+                                    results.setTitle("Tournament Results");
+                                    results.setHeaderText(null);
+                                    results.setContentText("Champion: " + champion.getName() + "\n"
+                                                  + "Second place: " + secondPlace.getName() + "\n"
+                                                  + "Third place: " + thirdPlace.getName());
+                                    results.showAndWait();
+                                } else if (next.next == null) { // if this game is semifinal
+                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
+                                    else next.teamOne = getWinner();
+                                    storeSemifinal();
+                                } else {
+                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
+                                    else next.teamOne = getWinner();
+                                }
                             }});
     }
     
@@ -63,28 +107,8 @@ public class Match implements MatchADT {
      */
     public Match(int mNum) {
         matchNum = mNum;
-        teamOneIn = new TextField();
-        teamTwoIn = new TextField();
         // Event listeners and handlers
-        teamOneIn.setOnAction(
-                        new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                scoreOne = Integer.parseInt(teamOneIn.getText());
-                            }});
-        teamTwoIn.setOnAction(
-                        new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                scoreTwo = Integer.parseInt(teamTwoIn.getText());
-                            }});
-        submitButton.setOnAction(
-                        new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                else next.teamOne = getWinner();
-                            }});
+
     }
     
     /** Return TeamOne's score. */
@@ -131,5 +155,11 @@ public class Match implements MatchADT {
     public Button getSubmitButton() { return submitButton; }
     public void setNext(Match n) { next = n; }
     public Match getNext() { return next; }
+    
+    private void storeSemifinal() {
+        if (semifinals[0] == null) semifinals[0] = this;
+        else semifinals[1] = this;
+    }
+
       
 }
