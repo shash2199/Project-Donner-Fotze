@@ -1,28 +1,27 @@
 package application;
-
+/**
+ * The Team class represents each team in the tournament. 
+ * It contains the name and rank (for seeding) of the team.
+ */
 public class Team {
-
-    private int score;
-    private String name;
-    
-    public Team(int score, String name) {
-        this.score = score;
-        this.name = name;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }   
+	private String name;
+	private int rank;
+	/**
+	 *  getter for initial rank of the team
+	 * 	setter for round is not required because it is set only once when the constructor is called
+	 *	according to the position in the file
+	 */
+	public Team(String name, int rank) {
+		this.name = name;
+		this.rank = rank;
+	}
+	public int getRank() {
+		return rank;
+	}
+	/**
+	 *  getter for round
+	 */
+	public String getName() {
+		return name;
+	}
 }
