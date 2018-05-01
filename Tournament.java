@@ -20,38 +20,34 @@ public class Tournament {
 	/**
 	 * The method is responsible for reading the input from
 	 * 	the file preferably using streams
+	 * the method then calls seed to seed all the teams 
+	 *	and store 
 	 * @param filePath the name of the file from which the
 	 * 	names of the teams needs to be extracted
+	 * @throws IOException if the file is not accessed properly
+	 * @returns the teams array that contains the number of teams 
 	 */
-	 public String readInput(String filePath) {
+	 public void readInput(String filePath) throws IOException {
 		 Stream<String> teamStream;
 		 List<String> teamsList = new ArrayList<String>();
-		 String errorMessage = null;
-		 try {
-			teamStream = Files.lines(Paths.get(filePath)).map(String::trim);
-			//Remove empty lines
-			teamStream = teamStream.filter(x -> x != null && !x.equals(""));
-			teamsList = teamStream.collect(Collectors.toList());
-			int rank = 1;
-			teams = new Team[teamsList.size()];
-			for(String teamName: teamsList) {
-				teams[rank - 1] = new Team(teamName, rank);
-				rank++;
-			}
-			if(teamsList.size() < 2) {
-				errorMessage = "No Games can be played when the number of teams is less than two!";
-				if(teams.length == 1)
-					Champion = teams[0];
-				else
-					teams = null;
-			}
-			else
-				seed();
-		} catch (IOException e) {
-			errorMessage = "Invalid filePath! :(";
-		} finally {
-			return errorMessage;
+		 teamStream = Files.lines(Paths.get(filePath)).map(String::trim);
+		//Remove empty lines
+		teamStream = teamStream.filter(x -> x != null && !x.equals(""));
+		teamsList = teamStream.collect(Collectors.toList());
+		int rank = 1;
+		teams = new Team[teamsList.size()];
+		for(String teamName: teamsList) {
+			teams[rank - 1] = new Team(teamName, rank);
+			rank++;
 		}
+		if(teamsList.size() < 2) {
+			if(teams.length == 1)
+				Champion = teams[0];
+			else
+				teams = null;
+			}
+		else
+			seed();
 	}
 	 
 	 /**
