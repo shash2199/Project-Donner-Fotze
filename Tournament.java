@@ -1,5 +1,12 @@
 package application;
-
+/**
+ * The Tournament class represents the tournament that is being played. 
+ * The tournament class contains the name of the tournament,
+ *  Team class instances (which represent each team), an array of matches to be played 
+ *  (which acts like our main data structure) 
+ *  and specific instances of the Team class which represent the champion, runner-up and the third place holder.
+ *  This class is responsible for taking in the input from the file, seeding and storing it in the main data structure.
+ */
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,10 +18,15 @@ import java.util.stream.Stream;
 public class Tournament {
 	private Match[] matches;
 	private Team[] teams;
-	private Team Champion;
-	private Team RunnerUp;
-	private Team ThirdPlace;
-	public Tournament(String filePath) {
+	/**
+	 * Constructor to call all the respective methods that 
+	 * 	read the file, seed the teams and store them in the
+	 * 	respective teams and matches arrays.
+	 * @param filePath the path of the file that needs to
+	 * 	be read
+	 * @throws IOException if the file is not read properly
+	 */
+	public Tournament (String filePath) throws IOException {
 		readInput(filePath);
 	}
 	/**
@@ -25,9 +37,8 @@ public class Tournament {
 	 * @param filePath the name of the file from which the
 	 * 	names of the teams needs to be extracted
 	 * @throws IOException if the file is not accessed properly
-	 * @returns the teams array that contains the number of teams 
 	 */
-	 public void readInput(String filePath) throws IOException {
+	 private void readInput(String filePath) throws IOException {
 		 Stream<String> teamStream;
 		 List<String> teamsList = new ArrayList<String>();
 		 teamStream = Files.lines(Paths.get(filePath)).map(String::trim);
@@ -41,9 +52,7 @@ public class Tournament {
 			rank++;
 		}
 		if(teamsList.size() < 2) {
-			if(teams.length == 1)
-				Champion = teams[0];
-			else
+			if(teams.length != 1)
 				teams = null;
 			}
 		else
@@ -54,7 +63,7 @@ public class Tournament {
 	  * Responsible for seeding the teams according to their team ranks and
 	  *  store them into the data structure (Array)
 	  */
-	public void seed() {
+	private void seed() {
 		/*
 		 * this is the number of matches in the first round 
 		 */
@@ -100,16 +109,16 @@ public class Tournament {
 			matches[i].setNext(matches[(i-1)/2]);
 		}
 	}
-	 
-	 /**
-	  * Updates the data structure depending upon 
-	  * the result of a match/challenge that is whenever the submit
-	  * button is pressed.
-	  */
-	 public void update();
+	
+	/**
+	 * @return an array containing all the teams
+	 */
 	public Team[] getTeam(){
 		return teams;	
 	}
+	/**
+	 * @return an array containing all the matches
+	 */
 	public Match[] getMatch(){
 		return matches;
 	}
