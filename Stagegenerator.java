@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,31 +15,61 @@ public class Stagegenerator {
 
     };
 
-    public Scene Scene() {
+    public Scene Scene() throws IOException {
         
-           Match matches[] = new Match[15];
-           HBox matchbox[]= new HBox[matches.length];
-           for(int i = 0; i<matches.length;i++) {
-               matches[i] = new Match(i);
-           }
-           
+        
+// //this block here is the manully created team and matches to test matches
+//     Team teams[] = new Team[4];
+//     for(int i = 0;i<teams.length;i++) {
+//         teams[i] = new Team("Team"+i,i);
+//     }
+//     Match matches[] = new Match[3];
+//     matches[0] = new Match( teams[0],teams[1],1);
+//     matches[1] = new Match( teams[2],teams[3],2);
+//     matches[2] = new Match(3);
+//     matches[0].setNext(matches[2]);
+//     matches[1].setNext(matches[2]);
+//     matches[2].setNext(null);
+        
+
+// //            block to get match from tournament and everything else
+//           Tournament myTournament = new Tournament("test.txt");
+//           Match matches[] = myTournament.getMatch();
+//           Team Teams[] = myTournament.getTeam();//for later tests 
+//        
+//
+//       
+//          for(int i = 0; i<matches.length;i++) {
+//           matches[i] = new Match(i);
+//           
+//        }
+        
+        
+        
+ // this part s the layout and you guys don't have to fully understand       
+        HBox matchbox[]= new HBox[matches.length];
+           System.out.println("it is here"+matches.length);
            for(int i = 0; i<matches.length;i++) {
                HBox top  = new HBox(10);
                HBox bootom  = new HBox(10);
                VBox holds = new VBox(10);
                HBox bigbox = new HBox(10);
-               matches[i].teamOneIn.setMaxWidth(50);
-               matches[i].teamTwoIn.setMaxWidth(50);
-               matches[i].submitButton.setMinHeight(62);;
-               top.getChildren().addAll(matches[i].teamOneLabel,matches[i].teamOneIn);
-               bootom.getChildren().addAll(matches[i].teamTwoLabel,matches[i].teamTwoIn);
+               matches[i].getTextOne().setMaxWidth(50);
+               matches[i].getTextTwo().setMaxWidth(50);
+               matches[i].getSubmitButton().setMinHeight(62);;
+               top.getChildren().addAll(matches[i].getLabelOne(),matches[i].getTextOne());
+               bootom.getChildren().addAll(matches[i].getLabelTwo(),matches[i].getTextTwo());
                holds.getChildren().addAll(top,bootom);
-               bigbox.getChildren().addAll(holds,matches[i].submitButton);
+               bigbox.getChildren().addAll(holds,matches[i].getSubmitButton());
                matchbox[i] = bigbox;
            }
+       
+           
            
         Pane outside = new Pane();
         HBox center = new HBox();
+        
+        
         if(matches.length==15) { // case for 16
             VBox left = new VBox(50);
             VBox right = new VBox(50);
