@@ -97,10 +97,9 @@ public class Tournament {
 		/*
 		 * initializes the rest of the matches
 		 */
-		while(d > 0) {
-			d--;
+		while(d >= 0) {
 			matches[d] = new Match(d);
-			
+			d--;	
 		}
 		/*
 		 * sets the next match for each match besides the one at index 0 which has no next match
