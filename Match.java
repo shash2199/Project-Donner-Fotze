@@ -32,11 +32,8 @@ public class Match implements MatchADT {
      */
     public Match(Team t1, Team t2, int mNum) {
         matchNum = mNum;
-        teamOne = t1;
-        teamTwo = t2;
-        teamOneLabel = new Label(teamOne.getName());
-        teamTwoLabel = new Label(teamTwo.getName());
-        
+        setTeamOne(t1);
+        setTeamTwo(t2);
         // Event listeners and handlers
         teamOneIn.setOnAction(
                         new EventHandler<ActionEvent>() {
@@ -91,12 +88,13 @@ public class Match implements MatchADT {
                                                   + "Third place: " + thirdPlace.getName());
                                     results.showAndWait();
                                 } else if (next.next == null) { // if this game is semifinal
-                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                    else next.teamOne = getWinner();
+                                    if (matchNum % 2 == 0) next.setTeamTwo(getWinner());
+                                    // store game info to determine third place after grand final
+                                    else next.setTeamOne(getWinner());
                                     storeSemifinal();
-                                } else {
-                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                    else next.teamOne = getWinner();
+                                } else { // if this is a normal game
+                                    if (matchNum % 2 == 0) next.setTeamTwo(getWinner());
+                                    else next.setTeamTwo(getWinner());
                                 }
                             }});
     }
@@ -108,8 +106,6 @@ public class Match implements MatchADT {
     public Match(int mNum) {
         matchNum = mNum;
         // Event listeners and handlers
-        
-        // Event listeners and handlers
         teamOneIn.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
@@ -163,12 +159,13 @@ public class Match implements MatchADT {
                                                   + "Third place: " + thirdPlace.getName());
                                     results.showAndWait();
                                 } else if (next.next == null) { // if this game is semifinal
-                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                    else next.teamOne = getWinner();
+                                    if (matchNum % 2 == 0) next.setTeamTwo(getWinner());
+                                    // store game info to determine third place after grand final
+                                    else next.setTeamOne(getWinner());
                                     storeSemifinal();
-                                } else {
-                                    if (matchNum % 2 == 0) next.teamTwo = getWinner();
-                                    else next.teamOne = getWinner();
+                                } else { // if this is a normal game
+                                    if (matchNum % 2 == 0) next.setTeamTwo(getWinner());
+                                    else next.setTeamTwo(getWinner());
                                 }
                             }});
     }
@@ -221,6 +218,16 @@ public class Match implements MatchADT {
     private void storeSemifinal() {
         if (semifinals[0] == null) semifinals[0] = this;
         else semifinals[1] = this;
+    }
+    
+    public void setTeamOne(Team t1) {
+        teamOne = t1;
+        teamOneLabel.setText(t1.getName());
+    }
+    
+    public void setTeamTwo(Team t2) {
+        teamTwo = t2;
+        teamTwoLabel.setText(t2.getName());
     }
 
       
