@@ -11,15 +11,18 @@
 
 package application;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -30,13 +33,14 @@ import javafx.scene.layout.VBox;
 public class Main extends Application {
     Stage window; // The application window that holds the GUI
     Scene scene; // The scene that contain GUI
-    static String filename;
+    static String filename;//intake the file name form command
 
     /**
      * Start class to call the application in order to launch
      */
     @Override
     public void start(Stage primaryStage) {
+       
         try {
 
 
@@ -51,8 +55,12 @@ public class Main extends Application {
             window.setTitle("New Tournament");
             window.show();
 
-        } catch (Exception e) {
-            // System.out.println(e.getMessage());
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("file not found");
+            alert.showAndWait();
         }
     }
 
