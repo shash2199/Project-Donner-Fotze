@@ -12,6 +12,7 @@
 package application;
 
 import java.io.IOException;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -57,10 +58,12 @@ public class Stagegenerator {
                 matches[i].getTextOne().setMaxWidth(50);
                 matches[i].getTextTwo().setMaxWidth(50);
                 matches[i].getSubmitButton().setMinHeight(62);
-                matches[i].getLabelOne().setMinWidth(60);
-                matches[i].getLabelTwo().setMinWidth(60);
-                matches[i].getLabelOne().setMaxWidth(60);
-                matches[i].getLabelTwo().setMaxWidth(60);
+                matches[i].getLabelOne().setMinWidth(65);
+                matches[i].getLabelTwo().setMinWidth(65);
+                matches[i].getLabelOne().setMaxWidth(65);
+                matches[i].getLabelOne().setAlignment(Pos.BASELINE_RIGHT);
+                matches[i].getLabelTwo().setAlignment(Pos.BASELINE_RIGHT);
+                matches[i].getLabelTwo().setMaxWidth(65);
                 matches[i].getLabelOne().setFont(Font.font ("Verdana", 14));
                 matches[i].getLabelTwo().setFont(Font.font ("Verdana", 14));
                 top.getChildren().addAll(matches[i].getLabelOne(), matches[i].getTextOne());
