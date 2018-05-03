@@ -1,3 +1,11 @@
+///////////////////////////////////////////////////////////////////////////////
+// Assignment Name: Tournament Bracket
+// Author: Jerry Yu
+// Email : jyu283@wisc.edu
+// Due Date: May 3, 2018
+// Known Bugs: None
+//////////////////////////////////////////////////////////////////////////////
+
 package application;
 
 import javafx.event.ActionEvent;
@@ -8,21 +16,37 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * The Match class stores data of individual matches, and handles user interaction
+ * including entering and submitting scores. Tie games are not allowed. After valid
+ * scores are entered, a winner is generated and the next match is updated. <br>
+ * Special cases: semifinal and final games are handled differently. Semi-final games
+ * will be stored in a static array to help determine the third place winner of the 
+ * tournament. The final game will produce a pop-up alert box informing the user of 
+ * the champion, second place, and third place winner of the tournament. 
+ * 
+ * @author Jerry Yu
+ *
+ */
 public class Match {
     private Team teamOne;
     private Team teamTwo;
     private int scoreOne = -999;
     private int scoreTwo = -999;
+
     private Button submitButton = new Button("OK");
+    // Labels for team names are defaulted to TBD
     private Label teamOneLabel = new Label("TBD"); 
     private Label teamTwoLabel = new Label("TBD");
     private TextField teamOneIn = new TextField();
     private TextField teamTwoIn = new TextField();
+
     private Match next;
     private int matchNum;
-      
-    static Match[] semifinals = new Match[2];
     
+    // stores the two semifinal games in order to determine the third place winner.
+    static Match[] semifinals = new Match[2];
+
     /**
      * Create a new Match object provided the two teams. Initialize the two labels
      * accordingly. Scores for both teams are initialized to -999 to differentiate
@@ -50,79 +74,16 @@ public class Match {
         submitButton.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
-                            public void handle(ActionEvent event) {
-                            	System.out.println(next);
-                                if (next == null) { // if this game is the final game
-                                	
-                                	System.out.println("Semifinal games results: ");
-                                	System.out.println("Match One: Team 1: "  + semifinals[0].teamOne.getName()
-                                								 + " (" + semifinals[0].scoreOne + ")" +
-                                								" Team 2: " + semifinals[0].teamTwo.getName()
-                                								+ " (" + semifinals[0].scoreTwo + ")");
-                                	System.out.println("Match Two: Team 1: "  + semifinals[1].teamOne.getName()
-           								 + " (" + semifinals[1].scoreOne + ")" +
-           								" Team 2: " + semifinals[1].teamTwo.getName()
-           								+ " (" + semifinals[1].scoreTwo + ")");
-                                	
-                                    Team champion = getWinner();
-                                    Team secondPlace;
-                                    if (teamOne.equals(champion)) secondPlace = teamTwo;
-                                    else secondPlace = teamOne;
-                                    // Compute third place team
-                                    Team thirdPlace;
-                                    Team semiOneLoser;
-                                    int loserOneScore;
-                                    if (semifinals[0].scoreOne > semifinals[0].scoreTwo) {
-                                    	System.out.println("This line is reached.");
-                                        semiOneLoser = teamTwo;
-                                        loserOneScore = scoreTwo;
-                                    }
-                                    else { 
-                                    	System.out.println("This line is reached.");
-                                        semiOneLoser = teamOne;
-                                        loserOneScore = scoreOne;
-                                    }
-                                    Team semiTwoLoser;
-                                    int loserTwoScore;
-                                    if (semifinals[1].scoreOne > semifinals[1].scoreTwo) {
-                                        semiTwoLoser = teamTwo;
-                                        loserTwoScore = scoreTwo;
-                                    }
-                                    else { 
-                                        semiTwoLoser = teamOne;
-                                        loserTwoScore = scoreOne;
-                                    }
-                                    if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
-                                    else thirdPlace = semiTwoLoser;
-//                                    Alert results = new Alert(AlertType.INFORMATION);
-//                                    results.setTitle("Tournament Results");
-//                                    results.setHeaderText(null);
-//                                    results.setContentText("Champion: " + champion.getName() + "\n"
-//                                                  + "Second place: " + secondPlace.getName() + "\n"
-//                                                  + "Third place: " + thirdPlace.getName());
-//                                    results.showAndWait();
-                                    System.out.println("Champion: " + champion.getName() + "\n"
-                                    			+ "Second place: " + secondPlace.getName() + "\n"
-                                    			+ "Third place: " + thirdPlace.getName());
-                                } else if (next.next == null) { // if this game is semi-final
-                                	if (next.teamOneLabel.getText().equals("TBD")) next.setTeamOne(getWinner());
-                                    else next.setTeamTwo(getWinner());
-                                    // store game info to determine third place after grand final
-                                    storeSemifinal();
-                                } else { // if this is a normal game
-                                	if (next.teamOneLabel.equals("TBD")) next.setTeamOne(getWinner());
-                                    else next.setTeamTwo(getWinner());
-                                }
-                            }});
+                            public void handle(ActionEvent event) { submit(); }});
     }
-    
+
     /**
      * Create a new Match object with no team information. Initialize the two labels
      * to "TBD" (To Be Decided). Scores for both teams are initialized to -999.
      */
     public Match(int mNum) {
         matchNum = mNum;
-     // Event listeners and handlers
+        // Event listeners and handlers
         teamOneIn.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
@@ -136,94 +97,120 @@ public class Match {
                                 scoreTwo = Integer.parseInt(teamTwoIn.getText());
                             }});
         submitButton.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                    	System.out.println(next);
-                        if (next == null) { // if this game is the final game
-                        	
-                        	System.out.println("Semifinal games results: ");
-                        	System.out.println("Match One: Team 1: "  + semifinals[0].teamOne.getName()
-                        								 + " (" + semifinals[0].scoreOne + ")" +
-                        								" Team 2: " + semifinals[0].teamTwo.getName()
-                        								+ " (" + semifinals[0].scoreTwo + ")");
-                        	System.out.println("Match Two: Team 1: "  + semifinals[1].teamOne.getName()
-   								 + " (" + semifinals[1].scoreOne + ")" +
-   								" Team 2: " + semifinals[1].teamTwo.getName()
-   								+ " (" + semifinals[1].scoreTwo + ")");
-                        	System.out.println();
-                            Team champion = getWinner();
-                            Team secondPlace;
-                            if (teamOne.equals(champion)) secondPlace = teamTwo;
-                            else secondPlace = teamOne;
-                            // Compute third place team
-                            Team thirdPlace;
-                            Team semiOneLoser;
-                            int loserOneScore;
-                            if (semifinals[0].scoreOne > semifinals[0].scoreTwo) {
-                                semiOneLoser = semifinals[0].teamTwo;
-                                loserOneScore = semifinals[0].scoreTwo;
-                                System.out.println(semiOneLoser.getName() + " semi one loser " + loserOneScore);
-                            }
-                            else { 
-                                semiOneLoser = semifinals[0].teamOne;
-                                loserOneScore = semifinals[0].scoreOne;
-                                System.out.println(semiOneLoser.getName() + " semi one loser " + loserOneScore);
-                            }
-                            Team semiTwoLoser;
-                            int loserTwoScore;
-                            if (semifinals[1].scoreOne > semifinals[1].scoreTwo) {
-                                semiTwoLoser = semifinals[1].teamTwo;
-                                loserTwoScore = semifinals[1].scoreTwo;
-                            }
-                            else { 
-                                semiTwoLoser = semifinals[1].teamOne;
-                                loserTwoScore = semifinals[1].scoreOne;
-                            }
-                            if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
-                            else thirdPlace = semiTwoLoser;
-//                            Alert results = new Alert(AlertType.INFORMATION);
-//                            results.setTitle("Tournament Results");
-//                            results.setHeaderText(null);
-//                            results.setContentText("Champion: " + champion.getName() + "\n"
-//                                          + "Second place: " + secondPlace.getName() + "\n"
-//                                          + "Third place: " + thirdPlace.getName());
-//                            results.showAndWait();
-                            System.out.println("Champion: " + champion.getName() + "\n"
-                            			+ "Second place: " + secondPlace.getName() + "\n"
-                            			+ "Third place: " + thirdPlace.getName());
-                        } else if (next.next == null) { // if this game is semi-final
-                        	if (next.teamOneLabel.getText().equals("TBD")) next.setTeamOne(getWinner());
-                            else next.setTeamTwo(getWinner());
-                            // store game info to determine third place after grand final
-                            storeSemifinal();
-                        } else { // if this is a normal game
-                        	if (next.teamOneLabel.equals("TBD")) next.setTeamOne(getWinner());
-                            else next.setTeamTwo(getWinner());
-                        }
-                    }});
-    }
-    
-    /** Return TeamOne's score. */
-    public int getScore1() {
-        return scoreOne;
-    }
-
-    /** Return TeamTwo's score. */
-    public int getScore2() {
-        return scoreTwo;
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) { submit(); }});
     }
     
     /**
-     * Set the scores for both teams.
-     * @param score1    Score of Team One.
-     * @param score2    Score of Team Two.
+     * Event handling for the submit button.
      */
-    public void setScore(int score1, int score2) {
-        scoreOne = score1;
-        scoreTwo = score2;
+    private void submit() {
+        // If either team in the current game has not been set, warn the user.
+        if (teamOne == null || teamTwo == null) {
+            Alert noTeam = new Alert(AlertType.WARNING);
+            noTeam.setTitle("WARNING");
+            noTeam.setHeaderText(null);
+            noTeam.setContentText("No team information.");
+            noTeam.showAndWait();
+            return;
+        }
+        // if either text field is empty, warn the user.
+        if (teamOneIn.getText().isEmpty() || teamTwoIn.getText().isEmpty()) {
+            Alert emptyScore = new Alert(AlertType.WARNING);
+            emptyScore.setTitle("WARNING");
+            emptyScore.setHeaderText(null);
+            emptyScore.setContentText("Invalid score.");
+            emptyScore.showAndWait();
+            return;
+        }
+        // if the two score inputs are the same, warn the user (no tie allowed).
+        if (teamOneIn.getText().equals(teamTwoIn.getText())) {
+            Alert sameScore = new Alert(AlertType.WARNING);
+            sameScore.setTitle("WARNING");
+            sameScore.setHeaderText(null);
+            sameScore.setContentText("Invalid score: Ties not permitted.");
+            sameScore.showAndWait();
+            return;
+        }
+        // no error, read in the scores.
+        scoreOne = Integer.parseInt(teamOneIn.getText());
+        scoreTwo = Integer.parseInt(teamTwoIn.getText());
+        if (next == null) { // if this game is the final game
+            // if the semi-final games have not been recorded, warn the user.
+            if (semifinals[0] == null || semifinals[1] == null) {
+                Alert noSemiFinal = new Alert(AlertType.WARNING);
+                noSemiFinal.setTitle("WARNING");;
+                noSemiFinal.setHeaderText(null);
+                noSemiFinal.setContentText("No semifinal match data.");
+                noSemiFinal.showAndWait();
+                return;
+            }
+            Team champion = getWinner();
+            Team secondPlace;
+            if (teamOne.equals(champion)) secondPlace = teamTwo;
+            else secondPlace = teamOne;
+            // Compute third place team
+            Team thirdPlace = getThirdPlace();
+            Alert results = new Alert(AlertType.INFORMATION);
+            results.setTitle("Tournament Results");
+            results.setHeaderText(null);
+            results.setContentText("Champion: " + champion.getName() + "\n"
+                            + "Second place: " + secondPlace.getName() + "\n"
+                            + "Third place: " + thirdPlace.getName());
+            results.showAndWait();
+        } else if (next.next == null) { // if this game is semi-final
+            if (next.teamOneLabel.getText().equals("TBD")) 
+                next.setTeamOne(getWinner());
+            else next.setTeamTwo(getWinner());
+            // store game info to determine third place after grand final
+            storeSemifinal();
+        } else { // if this is a normal game
+            if (next.teamOneLabel.getText().equals("TBD")) 
+                next.setTeamOne(getWinner());
+            else next.setTeamTwo(getWinner());
+        }
     }
     
+    /** 
+     * If current match is a semi-final game, store the match info in the static array.
+     */
+    private void storeSemifinal() {
+        if (semifinals[0] == null) semifinals[0] = this;
+        else semifinals[1] = this;
+    }
+
+    /**
+     * Get the third place winner after the semi-final is complete. Third place winner is 
+     * the one of the two semi-final losers with the higher score.
+     */
+    private static Team getThirdPlace() {
+        Team thirdPlace;
+        // determine the loser of semifinal one
+        Team semiOneLoser;
+        int loserOneScore;
+        if (semifinals[0].scoreOne > semifinals[0].scoreTwo) {
+            semiOneLoser = semifinals[0].teamTwo;
+            loserOneScore = semifinals[0].scoreTwo;
+        } else {
+            semiOneLoser = semifinals[0].teamOne;
+            loserOneScore = semifinals[0].scoreOne;
+        }
+        // determine the loser of semifinal two
+        Team semiTwoLoser;
+        int loserTwoScore;
+        if (semifinals[1].scoreOne > semifinals[1].scoreTwo) {
+            semiTwoLoser = semifinals[1].teamTwo;
+            loserTwoScore = semifinals[1].scoreTwo;
+        } else { 
+            semiTwoLoser = semifinals[1].teamOne;
+            loserTwoScore = semifinals[1].scoreOne;
+        }
+        // compare the scores of two losing teams, the team that scored more is the third place
+        if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
+        else thirdPlace = semiTwoLoser;
+        return thirdPlace;
+    }
 
     /**
      * Determine the winner of the match based on the scores. Throws an
@@ -236,29 +223,46 @@ public class Match {
         if (scoreOne == scoreTwo) throw new IllegalArgumentException();
         return (scoreOne > scoreTwo) ? teamOne : teamTwo;
     }
-    
-    public Label getLabelOne() { return teamOneLabel; }
-    public Label getLabelTwo() { return teamTwoLabel; }
-    public TextField getTextOne() { return teamOneIn; }
-    public TextField getTextTwo() { return teamTwoIn; }
-    public Button getSubmitButton() { return submitButton; }
+
     public void setNext(Match n) { next = n; }
-    public Match getNext() { return next; }
-    
-    private void storeSemifinal() {
-        if (semifinals[0] == null) semifinals[0] = this;
-        else semifinals[1] = this;
-    }
-    
+
     public void setTeamOne(Team t1) {
         teamOne = t1;
         teamOneLabel.setText(t1.getName());
     }
-    
+
     public void setTeamTwo(Team t2) {
         teamTwo = t2;
         teamTwoLabel.setText(t2.getName());
     }
+    
+    public Match getNext() { return next; }
 
-      
+    /**
+     * Set the scores for both teams.
+     * @param score1    Score of Team One.
+     * @param score2    Score of Team Two.
+     */
+    public void setScore(int score1, int score2) {
+        scoreOne = score1;
+        scoreTwo = score2;
+    }
+
+    /** Return TeamOne's score. */
+    public int getScore1() { return scoreOne; }
+
+    /** Return TeamTwo's score. */
+    public int getScore2() { return scoreTwo; }
+
+    public Label getLabelOne() { return teamOneLabel; }
+
+    public Label getLabelTwo() { return teamTwoLabel; }
+
+    public TextField getTextOne() { return teamOneIn; }
+
+    public TextField getTextTwo() { return teamTwoIn; }
+
+    public Button getSubmitButton() { return submitButton; }
+
+
 }
