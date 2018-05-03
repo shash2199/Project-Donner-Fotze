@@ -10,6 +10,7 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,6 +55,9 @@ public class Match {
      * @param t2    Team Two
      */
     public Match(Team t1, Team t2) {
+    	teamOneLabel.setAlignment(Pos.CENTER_RIGHT);
+    	teamTwoLabel.setAlignment(Pos.CENTER_RIGHT);
+
         setTeamOne(t1);
         setTeamTwo(t2);
         // Event listeners and handlers
@@ -100,6 +104,9 @@ public class Match {
      * to "TBD" (To Be Decided). Scores for both teams are initialized to -999.
      */
     public Match() {
+    	teamOneLabel.setAlignment(Pos.CENTER_RIGHT);
+    	teamTwoLabel.setAlignment(Pos.CENTER_RIGHT);
+
         // Event listeners and handlers
         teamOneIn.setOnAction(
                         new EventHandler<ActionEvent>() {
