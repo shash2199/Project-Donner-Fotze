@@ -83,8 +83,19 @@ public class Match {
         submitButton.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
-                            public void handle(ActionEvent event) { submit(); }});
+                            public void handle(ActionEvent event) { 
+                            	try {
+                            		submit(); 
+                            	} catch (NumberFormatException numE) {
+                            		numberFormat();
+                            		return;
+                            	} catch (Exception e) {
+                            		invalidEntry();
+                            		return;
+                            	}
+                            }});
     }
+    
 
     /**
      * Create a new Match object with no team information. Initialize the two labels
@@ -117,7 +128,17 @@ public class Match {
         submitButton.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
-                            public void handle(ActionEvent event) { submit(); }});
+                            public void handle(ActionEvent event) { 
+                            	try {
+                            		submit(); 
+                            	} catch (NumberFormatException numE) {
+                            		numberFormat();
+                            		return;
+                            	} catch (Exception e) {
+                            		invalidEntry();
+                            		return;
+                            	}
+                            }});
     }
 
     private static void invalidEntry() {
@@ -128,6 +149,14 @@ public class Match {
         invalid.showAndWait();
     }
 
+    private static void numberFormat() {
+    	Alert format = new Alert(AlertType.WARNING);
+    	format.setTitle("WARNING");
+    	format.setHeaderText(null);
+    	format.setContentText("Invalid entry: Numbers only.");
+    	format.showAndWait();
+    }
+    
     /**
      * Event handling for the submit button.
      */
@@ -160,26 +189,30 @@ public class Match {
         scoreTwo = Integer.parseInt(teamTwoIn.getText());
         if (next == null) { // if this game is the final game
             // if the semi-final games have not been recorded, warn the user.
-            if (semifinals[0] == null || semifinals[1] == null) {
-                Alert noSemiFinal = new Alert(AlertType.WARNING);
-                noSemiFinal.setTitle("WARNING");;
-                noSemiFinal.setHeaderText(null);
-                noSemiFinal.setContentText("No semifinal match data.");
-                noSemiFinal.showAndWait();
-                return;
-            }
             Team champion = getWinner();
             Team secondPlace;
             if (teamOne.equals(champion)) secondPlace = teamTwo;
             else secondPlace = teamOne;
             // Compute third place team
-            Team thirdPlace = getThirdPlace();
             Alert results = new Alert(AlertType.INFORMATION);
             results.setTitle("Tournament Results");
             results.setHeaderText(null);
-            results.setContentText("Champion: " + champion.getName() + "\n"
-                            + "Second place: " + secondPlace.getName() + "\n"
-                            + "Third place: " + thirdPlace.getName());
+            if (semifinals[0] == null && semifinals[1] == null) {
+            	results.setContentText("Champion: " + champion.getName() + "\n"
+            			+ "Second place: " + secondPlace.getName());
+            } else if (semifinals[0] == null || semifinals[1] == null) {
+            	Alert incompSemi = new Alert(AlertType.WARNING);
+            	incompSemi.setTitle("WARNING");
+            	incompSemi.setHeaderText(null);
+            	incompSemi.setContentText("Incomplete semi-final data.");
+            	incompSemi.showAndWait();
+            	return;
+            } else if (semifinals[0] != null && semifinals[1] != null) {
+            	Team thirdPlace = getThirdPlace();
+                results.setContentText("Champion: " + champion.getName() + "\n"
+                        + "Second place: " + secondPlace.getName() + "\n"
+                        + "Third place: " + thirdPlace.getName());
+            }
             results.showAndWait();
         } else if (next.next == null) { // if this game is semi-final
             if (next.teamOneLabel.getText().equals("TBD")) 
@@ -289,5 +322,5 @@ public class Match {
 
     public Button getSubmitButton() { return submitButton; }
 
-
 }
+
