@@ -7,7 +7,7 @@ package application;
  *  and specific instances of the Team class which represent the champion, runner-up and the third place holder.
  *  This class is responsible for taking in the input from the file, seeding and storing it in the main data structure.
  *  The seeding algorithm taken from online source 
- * @author
+ * @author Shashwat Srivastava, Theodore Montalbano
  */
 import java.io.IOException;
 import java.nio.file.Files;
@@ -68,22 +68,28 @@ public class Tournament {
 			seed();
 	}
 	 /**
-	  * helper method gotten from online source that help algorithm seed the teams
+	  * The recursive method helper method gotten from online source that help 
+	  * 	algorithm seed the teams
 	  * @author Maulin Vasavada
 	  * from: https://coderanch.com/t/371069/java/arrange-numbers
-	  * @param N
-	  * @param n
-	  * @return
+	  * @param N the number of teams in the tournament
+	  * @param n the position where the teams of a respective rank will be indexed
+	  * @return the particular rank of a team with a particular rank
 	  */
-	 public static double f(int N, int n) {
-		 double d = Math.pow(2,N) +1;
-		 if ( n == 2) {
-		 return d -1;
-		 } else if ( n % 2 == 1 ) {
-		 return  d - f(N-1, (n+1)/2);
-		 } else {
-		 return f(N-1,n/2);
-		 }
+	 public static double seedHelper(int N, int n) {
+		 double d = Math.pow(2,N) + 1;
+		 if ( n == 2) { // the base case
+		 return d - 1;
+		 	}
+		 // the rest of the two cases adhere to the 
+		 // formula function that the source provides
+		 // to seed the teams
+		 else if ( n % 2 == 1 ) {
+		 return  d - seedHelper(N-1, (n+1)/2);
+		 	} 
+		 else {
+		 return seedHelper(N-1,n/2);
+		 	}
 		 }
 	 /**
 	  * Returns log base 2 of input as long as the input is a power of two and greater than 0.
