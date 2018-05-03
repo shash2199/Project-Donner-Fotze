@@ -165,14 +165,14 @@ public class Tournament {
 		 *  the seeds of the teams playing in the matches approach each other.
 		 */
 		for(int i = 0; i < teams.length; i=i+2) {
-			matches[matches.length-1-i/2] = new Match(teams[(int) data[i+1]-1],teams[(int) data[i+2]-1],matches.length-1-i);
+			matches[matches.length-1-i/2] = new Match(teams[(int) data[i+1]-1],teams[(int) data[i+2]-1]);
 			b--;
 		}
 		/*
 		 * initializes the rest of the matches
 		 */
 		while(b >= 0) {
-			matches[b] = new Match(b);
+			matches[b] = new Match();
 			b--;
 		}
 		/*
