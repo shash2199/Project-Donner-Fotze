@@ -86,8 +86,9 @@ public class Tournament {
 		 }
 		 }
 	 /**
-	  * Returns log base 2 of input as long as the input is a power of two and greater than 0;
-	  * @param x
+	  * Returns log base 2 of input as long as the input is a power of two and greater than 0.
+	  * 
+	  * @param x - method takes the log base 2 of this number
 	  * @return log base 2 of the input
 	  */
 	 private int log(int x) {
@@ -115,15 +116,29 @@ public class Tournament {
 		int N = log(teams.length);
 		double d = Math.pow(2,N);
 		double d1 = d +1;
+		/*
+		 * initializes data to teams.length + 1
+		 */
 		double[] data = new double[(int)d+1];
 		//System.out.println("d="+d);
 		data[0] = -1;
+		/*
+		 * intializes first element in data to be the first seed and the second
+		 * element to be the seed of the team the first seed is playing against:
+		 * teams.length
+		 */
 		data[1] = 1;
 		data[2] = d;
+		/*
+		 * initializes second to last element of data to be 2 seed
+		 * and the second to last element to be the seed of the team the two seed is
+		 * playing against which will always be teams.length - 1
+		 */
 		data[(int)d] = d-1;
 		data[(int)d-1] = 2;
+		
 		for(int i=4; i < (int)d; i+= 2 ) {
-		data[i-1] = f(N,i);
+		data[i-1] = seedHelper(N,i);
 		data[i] = d1 - data[i-1];
 		}
 		// seeding algorithm (from online source) ends
