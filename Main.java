@@ -12,12 +12,25 @@
 package application;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
 
 public class Main extends Application {
     Stage window; // The application window that holds the GUI
     Scene scene; // The scene that contain GUI
+    static String filename;
 
     /**
      * Start class to call the application in order to launch
@@ -29,7 +42,7 @@ public class Main extends Application {
 
 
             Stagegenerator newstage = new Stagegenerator();
-            scene = newstage.Scene("test.txt");// pass in a file string and generate Scene for
+            scene = newstage.Scene(filename);// pass in a file string and generate Scene for
                                                // display
 
 
@@ -39,7 +52,7 @@ public class Main extends Application {
             window.show();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // System.out.println(e.getMessage());
         }
     }
 
@@ -49,7 +62,9 @@ public class Main extends Application {
      * @param args
      */
     public static void main(String[] args) {
+        filename = args[0];    
         launch(args);
+
     }
 
 
