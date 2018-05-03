@@ -141,7 +141,9 @@ public class Tournament {
 		 */
 		data[(int)d] = d-1;
 		data[(int)d-1] = 2;
-		
+		/*
+		 * seeds the rest of the teams utilizing seedHelper()
+		 */
 		for(int i=4; i < (int)d; i+= 2 ) {
 		data[i-1] = seedHelper(N,i);
 		data[i] = d1 - data[i-1];
