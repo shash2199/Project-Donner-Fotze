@@ -57,10 +57,12 @@ public class Stagegenerator {
                 matches[i].getTextOne().setMaxWidth(50);
                 matches[i].getTextTwo().setMaxWidth(50);
                 matches[i].getSubmitButton().setMinHeight(62);
-                matches[i].getLabelOne().setMinWidth(50);
-                matches[i].getLabelTwo().setMinWidth(50);
-                matches[i].getLabelOne().setMaxWidth(50);
-                matches[i].getLabelTwo().setMaxWidth(50);
+                matches[i].getLabelOne().setMinWidth(60);
+                matches[i].getLabelTwo().setMinWidth(60);
+                matches[i].getLabelOne().setMaxWidth(60);
+                matches[i].getLabelTwo().setMaxWidth(60);
+                matches[i].getLabelOne().setFont(Font.font ("Verdana", 14));
+                matches[i].getLabelTwo().setFont(Font.font ("Verdana", 14));
                 top.getChildren().addAll(matches[i].getLabelOne(), matches[i].getTextOne());
                 bootom.getChildren().addAll(matches[i].getLabelTwo(), matches[i].getTextTwo());
                 holds.getChildren().addAll(top, bootom);
@@ -79,23 +81,25 @@ public class Stagegenerator {
                 VBox right3 = new VBox(50);
                 left.getChildren().addAll(matchbox[14], matchbox[13], matchbox[12], matchbox[11]);
                 left.setLayoutX(20);
+                left.setLayoutY(20);
                 right.getChildren().addAll(matchbox[7], matchbox[8], matchbox[9], matchbox[10]);
                 right.setLayoutX(1200);
+                right.setLayoutY(20);
                 left2.getChildren().addAll(matchbox[6], matchbox[5]);
-                left2.setLayoutX(200);
-                left2.setLayoutY(65);
+                left2.setLayoutX(220);
+                left2.setLayoutY(85);
                 right2.getChildren().addAll(matchbox[3], matchbox[4]);
                 right2.setLayoutX(1000);
-                right2.setLayoutY(65);
+                right2.setLayoutY(85);
                 left3.getChildren().addAll(matchbox[2]);
                 left3.setLayoutX(400);
-                left3.setLayoutY(170);
+                left3.setLayoutY(190);
                 right3.getChildren().addAll(matchbox[1]);
                 right3.setLayoutX(800);
-                right3.setLayoutY(170);
+                right3.setLayoutY(190);
                 center.getChildren().addAll(matchbox[0]);
                 center.setLayoutX(600);
-                center.setLayoutY(170);
+                center.setLayoutY(190);
                 outside.getChildren().addAll(left, left2, left3, center, right3, right2, right);
             } else if (matches.length == 7) { // case for 8
                 VBox left = new VBox(300);
@@ -103,19 +107,20 @@ public class Stagegenerator {
                 VBox left2 = new VBox(150);
                 VBox right2 = new VBox(150);
                 left.getChildren().addAll(matchbox[6], matchbox[5]);
+                left.setLayoutY(20);
                 right.getChildren().addAll(matchbox[3], matchbox[4]);
                 right.setLayoutX(1200);
-
+                right.setLayoutY(20);
                 left2.getChildren().addAll(matchbox[2]);
                 left2.setLayoutX(300);
-                left2.setLayoutY(170);
+                left2.setLayoutY(190);
                 right2.getChildren().addAll(matchbox[1]);
                 right2.setLayoutX(900);
-                right2.setLayoutY(170);
+                right2.setLayoutY(190);
 
                 center.getChildren().addAll(matchbox[0]);
                 center.setLayoutX(600);
-                center.setLayoutY(170);
+                center.setLayoutY(190);
                 outside.getChildren().addAll(left, left2, center, right2, right);
 
             } else if (matches.length == 3) { // case for 4
@@ -142,7 +147,6 @@ public class Stagegenerator {
         } else {// handle the problem when there is no match
             
             if (myTournament.getTeam() == null) {
-                Team Teams[] = myTournament.getTeam();
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setHeaderText(null);
@@ -160,13 +164,7 @@ public class Stagegenerator {
             }
         }
 
-        Label operation = new Label("Enter your score in the corresponding text field");// operation
-                                                                              // requirement for
-                                                                              // users
-        operation.setFont(new Font("Arial", 20));
-        operation.setLayoutX(550);
-        outside.getChildren().add(operation);
-        Scene scene1 = new Scene(outside, 1380, 430);
+        Scene scene1 = new Scene(outside, 1380, 470);
         return scene1;
 
     };
