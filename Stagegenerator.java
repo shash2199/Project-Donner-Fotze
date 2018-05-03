@@ -56,7 +56,11 @@ public class Stagegenerator {
                 HBox bigbox = new HBox(10);
                 matches[i].getTextOne().setMaxWidth(50);
                 matches[i].getTextTwo().setMaxWidth(50);
-                matches[i].getSubmitButton().setMinHeight(62);;
+                matches[i].getSubmitButton().setMinHeight(62);
+                matches[i].getLabelOne().setMinWidth(50);
+                matches[i].getLabelTwo().setMinWidth(50);
+                matches[i].getLabelOne().setMaxWidth(50);
+                matches[i].getLabelTwo().setMaxWidth(50);
                 top.getChildren().addAll(matches[i].getLabelOne(), matches[i].getTextOne());
                 bootom.getChildren().addAll(matches[i].getLabelTwo(), matches[i].getTextTwo());
                 holds.getChildren().addAll(top, bootom);
@@ -74,6 +78,7 @@ public class Stagegenerator {
                 VBox left3 = new VBox(50);
                 VBox right3 = new VBox(50);
                 left.getChildren().addAll(matchbox[14], matchbox[13], matchbox[12], matchbox[11]);
+                left.setLayoutX(20);
                 right.getChildren().addAll(matchbox[7], matchbox[8], matchbox[9], matchbox[10]);
                 right.setLayoutX(1200);
                 left2.getChildren().addAll(matchbox[6], matchbox[5]);
@@ -155,13 +160,13 @@ public class Stagegenerator {
             }
         }
 
-        Label operation = new Label("Plese Hit Enter After you Input scores");// operation
+        Label operation = new Label("Enter your score in the corresponding text field");// operation
                                                                               // requirement for
                                                                               // users
         operation.setFont(new Font("Arial", 20));
         operation.setLayoutX(550);
         outside.getChildren().add(operation);
-        Scene scene1 = new Scene(outside, 1390, 450);
+        Scene scene1 = new Scene(outside, 1380, 430);
         return scene1;
 
     };
