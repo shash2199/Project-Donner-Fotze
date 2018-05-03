@@ -7,8 +7,7 @@ package application;
  *  and specific instances of the Team class which represent the champion, runner-up and the third place holder.
  *  This class is responsible for taking in the input from the file, seeding and storing it in the main data structure.
  *  The seeding algorithm taken from online source 
- * @author Maulin Vasavada	 
- * from: https://coderanch.com/t/371069/java/arrange-numbers
+ * @author
  */
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +19,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Tournament {
+	/**
+	 * Array that represents the tournament bracket
+	 */
 	private Match[] matches;
+	/**
+	 * Array that holds all of the teams participating in tournament.
+	 */
 	private Team[] teams;
 	/**
 	 * Constructor to call all the respective methods that 
