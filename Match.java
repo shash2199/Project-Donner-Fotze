@@ -43,7 +43,7 @@ public class Match {
 
     private Match next;
     private int matchNum;
-    
+
     // stores the two semifinal games in order to determine the third place winner.
     static Match[] semifinals = new Match[2];
 
@@ -63,13 +63,22 @@ public class Match {
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                scoreOne = Integer.parseInt(teamOneIn.getText());
-                            }});
+                                try {
+                                    scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                                } catch (Exception ex) {
+                                    invalidEntry();
+                                    return;
+                                }}});
         teamTwoIn.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                                try {
+                                    scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                                } catch (Exception ex) {
+                                    invalidEntry();
+                                    return;
+                                }
                             }});
         submitButton.setOnAction(
                         new EventHandler<ActionEvent>() {
@@ -88,20 +97,37 @@ public class Match {
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                scoreOne = Integer.parseInt(teamOneIn.getText());
+                                try { scoreOne = Integer.parseInt(teamOneIn.getText()); }
+                                catch (Exception ex) { 
+                                    invalidEntry(); 
+                                    return;
+                                }
                             }});
         teamTwoIn.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent e) {
-                                scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                                try {
+                                    scoreTwo = Integer.parseInt(teamTwoIn.getText());
+                                } catch (Exception ex) {
+                                    invalidEntry();
+                                    return;
+                                }
                             }});
         submitButton.setOnAction(
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) { submit(); }});
     }
-    
+
+    private static void invalidEntry() {
+        Alert invalid = new Alert(AlertType.WARNING);
+        invalid.setTitle("WARNING");
+        invalid.setHeaderText(null);
+        invalid.setContentText("Invalid entry.");
+        invalid.showAndWait();
+    }
+
     /**
      * Event handling for the submit button.
      */
@@ -117,11 +143,7 @@ public class Match {
         }
         // if either text field is empty, warn the user.
         if (teamOneIn.getText().isEmpty() || teamTwoIn.getText().isEmpty()) {
-            Alert emptyScore = new Alert(AlertType.WARNING);
-            emptyScore.setTitle("WARNING");
-            emptyScore.setHeaderText(null);
-            emptyScore.setContentText("Invalid score.");
-            emptyScore.showAndWait();
+            invalidEntry();
             return;
         }
         // if the two score inputs are the same, warn the user (no tie allowed).
@@ -170,8 +192,10 @@ public class Match {
                 next.setTeamOne(getWinner());
             else next.setTeamTwo(getWinner());
         }
+        // after scores have been entered, disable the submit button.
+        submitButton.setDisable(true);
     }
-    
+
     /** 
      * If current match is a semi-final game, store the match info in the static array.
      */
@@ -226,6 +250,7 @@ public class Match {
 
     public void setNext(Match n) { next = n; }
 
+
     public void setTeamOne(Team t1) {
         teamOne = t1;
         teamOneLabel.setText(t1.getName());
@@ -235,7 +260,7 @@ public class Match {
         teamTwo = t2;
         teamTwoLabel.setText(t2.getName());
     }
-    
+
     public Match getNext() { return next; }
 
     /**
