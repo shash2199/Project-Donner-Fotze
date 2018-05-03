@@ -42,7 +42,6 @@ public class Match {
     private TextField teamTwoIn = new TextField();
 
     private Match next;
-    private int matchNum;
 
     // stores the two semifinal games in order to determine the third place winner.
     static Match[] semifinals = new Match[2];
@@ -54,8 +53,7 @@ public class Match {
      * @param t1    Team One
      * @param t2    Team Two
      */
-    public Match(Team t1, Team t2, int mNum) {
-        matchNum = mNum;
+    public Match(Team t1, Team t2) {
         setTeamOne(t1);
         setTeamTwo(t2);
         // Event listeners and handlers
@@ -101,8 +99,7 @@ public class Match {
      * Create a new Match object with no team information. Initialize the two labels
      * to "TBD" (To Be Decided). Scores for both teams are initialized to -999.
      */
-    public Match(int mNum) {
-        matchNum = mNum;
+    public Match() {
         // Event listeners and handlers
         teamOneIn.setOnAction(
                         new EventHandler<ActionEvent>() {
