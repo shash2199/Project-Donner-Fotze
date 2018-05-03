@@ -24,31 +24,29 @@ public class Stagegenerator {
 //         teams[i] = new Team("Team"+i,i);
 //     }
 //     Match matches[] = new Match[3];
-//     matches[0] = new Match( teams[0],teams[1],1);
-//     matches[1] = new Match( teams[2],teams[3],2);
-//     matches[2] = new Match(3);
-//     matches[0].setNext(matches[2]);
+//     matches[1] = new Match( teams[0],teams[1],1);
+//     matches[2] = new Match( teams[2],teams[3],2);
+//     matches[0] = new Match(3);
 //     matches[1].setNext(matches[2]);
-//     matches[2].setNext(null);
+//     matches[2].setNext(matches[2]);
+//     matches[0].setNext(null);
         
 
-// //            block to get match from tournament and everything else
-//           Tournament myTournament = new Tournament("test.txt");
-//           Match matches[] = myTournament.getMatch();
-//           Team Teams[] = myTournament.getTeam();//for later tests 
-//        
-//
-//       
-//          for(int i = 0; i<matches.length;i++) {
-//           matches[i] = new Match(i);
-//           
-//        }
+ //            block to get match from tournament and everything else
+           Tournament myTournament = new Tournament("test.txt");
+           Match matches[] = myTournament.getMatch();
+           for(Match m: matches) {
+               System.out.println(m.getLabelOne());
+               System.out.println(m.getLabelTwo());
+               
+           }
+           Team Teams[] = myTournament.getTeam();//for later tests 
         
-        
+
+      
         
  // this part s the layout and you guys don't have to fully understand       
-        HBox matchbox[]= new HBox[matches.length];
-           System.out.println("it is here"+matches.length);
+            HBox matchbox[]= new HBox[matches.length];
            for(int i = 0; i<matches.length;i++) {
                HBox top  = new HBox(10);
                HBox bootom  = new HBox(10);
@@ -69,26 +67,27 @@ public class Stagegenerator {
         Pane outside = new Pane();
         HBox center = new HBox();
         
-        
-        if(matches.length==15) { // case for 16
+        if(false) {
+            
+        }else if(matches.length==15) { // case for 16
             VBox left = new VBox(50);
             VBox right = new VBox(50);
             VBox left2 = new VBox(150);
             VBox right2 = new VBox(150);
             VBox left3 = new VBox(50);
             VBox right3 = new VBox(50);
-            left.getChildren().addAll(matchbox[0],matchbox[1],matchbox[2],matchbox[3]);
-            right.getChildren().addAll(matchbox[4],matchbox[5],matchbox[6],matchbox[7]);
+            left.getChildren().addAll(matchbox[14],matchbox[13],matchbox[12],matchbox[11]);
+            right.getChildren().addAll(matchbox[7],matchbox[8],matchbox[9],matchbox[10]);
             right.setLayoutX(1200);
-            left2.getChildren().addAll(matchbox[8],matchbox[9]);
+            left2.getChildren().addAll(matchbox[6],matchbox[5]);
             left2.setLayoutX(200);left2.setLayoutY(65);
-            right2.getChildren().addAll(matchbox[10],matchbox[11]);
+            right2.getChildren().addAll(matchbox[3],matchbox[4]);
             right2.setLayoutX(1000);right2.setLayoutY(65);
-            left3.getChildren().addAll(matchbox[12]);
+            left3.getChildren().addAll(matchbox[2]);
             left3.setLayoutX(400);left3.setLayoutY(170);
-            right3.getChildren().addAll(matchbox[13]);
+            right3.getChildren().addAll(matchbox[1]);
             right3.setLayoutX(800);right3.setLayoutY(170);
-            center.getChildren().addAll(matchbox[14]);
+            center.getChildren().addAll(matchbox[0]);
             center.setLayoutX(600);center.setLayoutY(170);
             outside.getChildren().addAll(left,left2,left3,center,right3,right2,right);
         } else if(matches.length==7) { // case for 8
@@ -96,29 +95,29 @@ public class Stagegenerator {
             VBox right = new VBox(300);
             VBox left2 = new VBox(150);
             VBox right2 = new VBox(150);
-            left.getChildren().addAll(matchbox[0],matchbox[1]);
-            right.getChildren().addAll(matchbox[2],matchbox[3]);
+            left.getChildren().addAll(matchbox[3],matchbox[4]);
+            right.getChildren().addAll(matchbox[5],matchbox[6]);
             right.setLayoutX(1200);
             
-            left2.getChildren().addAll(matchbox[4]);
+            left2.getChildren().addAll(matchbox[1]);
             left2.setLayoutX(300);left2.setLayoutY(170);            
-            right2.getChildren().addAll(matchbox[5]);
+            right2.getChildren().addAll(matchbox[2]);
             right2.setLayoutX(900);right2.setLayoutY(170);
             
-            center.getChildren().addAll(matchbox[6]);
+            center.getChildren().addAll(matchbox[0]);
             center.setLayoutX(600);center.setLayoutY(170);
             outside.getChildren().addAll(left,left2,center,right2,right);
             
         } else if(matches.length==3){  // case for 4
             VBox left = new VBox(100);
             VBox right = new VBox(100);
-            left.getChildren().addAll(matchbox[0]);
+            left.getChildren().addAll(matchbox[1]);
             left.setLayoutX(400);left.setLayoutY(170);
             
-            right.getChildren().addAll(matchbox[1]);
+            right.getChildren().addAll(matchbox[2]);
             right.setLayoutX(800);right.setLayoutY(170);
             
-            center.getChildren().addAll(matchbox[2]);
+            center.getChildren().addAll(matchbox[0]);
             center.setLayoutX(600);center.setLayoutY(170);
             outside.getChildren().addAll(left,center,right);
         } else if (matches.length==1) {//case for 2 team
