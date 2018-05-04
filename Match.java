@@ -1,7 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Assignment Name: Tournament Bracket
 // Author: Jerry Yu
+// Partners: Shashwat Srivastava, Tianyuan Yuan, Griff Zhang, Theodore Montalbano
 // Email : jyu283@wisc.edu
+// CS Login: jyu
+// Credits: None
 // Due Date: May 3, 2018
 // Known Bugs: None
 //////////////////////////////////////////////////////////////////////////////
