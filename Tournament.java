@@ -162,7 +162,6 @@ public class Tournament {
 		/*
 		 * this is the number of matches in the first round 
 		 */
-		int firstRoundMatchNum = teams.length / 2;
 		matches = new Match[teams.length - 1];
 		/*
 		 * keeps track of how many matches have been my initializes
