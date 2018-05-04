@@ -269,7 +269,7 @@ public class Match {
         }
         // compare the scores of two losing teams, the team that scored more is the third place
         if (loserOneScore > loserTwoScore) thirdPlace = semiOneLoser;
-        else thirdPlace = semiTwoLoser;
+        else  thirdPlace = semiTwoLoser;
         return thirdPlace;
     }
 
