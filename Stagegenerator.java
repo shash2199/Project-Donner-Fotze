@@ -55,8 +55,8 @@ public class Stagegenerator {
                 HBox bootom = new HBox(10);
                 VBox holds = new VBox(10);
                 HBox bigbox = new HBox(10);
-                matches[i].getTextOne().setMaxWidth(50);
-                matches[i].getTextTwo().setMaxWidth(50);
+                matches[i].getTextOne().setMaxWidth(40);
+                matches[i].getTextTwo().setMaxWidth(40);
                 matches[i].getSubmitButton().setMinHeight(62);
                 matches[i].getLabelOne().setMinWidth(65);
                 matches[i].getLabelTwo().setMinWidth(65);
@@ -166,7 +166,15 @@ public class Stagegenerator {
                 alert.showAndWait();
             }
         }
-
+        Label operation = new Label("Please enter scores in the coresponding text field :)");
+        operation.setLayoutX(450);
+        operation.setLayoutY(400);
+        operation.setFont(Font.font ("Verdana", 20));
+        Label finalgame = new Label("Final game");
+        finalgame.setLayoutY(150);
+        finalgame.setLayoutX(650);
+        finalgame.setFont(Font.font ("Verdana", 20));
+        outside.getChildren().addAll(finalgame,operation);
         Scene scene1 = new Scene(outside, 1380, 470);
         return scene1;
 
