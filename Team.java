@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+// Assignment Name: Tournament Bracket
+// Author: Shashwat Srivastava, Theodore Montalbano
+// Partners: Jerry Yu, Tianyuan Yuan, Griff Zhang
+// Email : ssrivastav26@wisc.edu, tmontalbano@wisc.edu
+// CS Login: shashwat, montalbano
+// Credits: None
+// Due Date: May 3, 2018
+// Known Bugs: None
+//////////////////////////////////////////////////////////////////////////////
+
 package application;
 /**
  * The Team class represents each team in the tournament. 
