@@ -330,4 +330,3 @@ public class Match {
     public Button getSubmitButton() { return submitButton; }
 
 }
-
