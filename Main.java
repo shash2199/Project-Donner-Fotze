@@ -33,7 +33,7 @@ import javafx.scene.layout.VBox;
 public class Main extends Application {
     Stage window; // The application window that holds the GUI
     Scene scene; // The scene that contain GUI
-    static String filename;//intake the file name form command
+    static String filename;// the name of the file
 
     /**
      * Start class to call the application in order to launch
@@ -42,19 +42,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
        
         try {
-
-
-
-            Stagegenerator newstage = new Stagegenerator();
-            scene = newstage.Scene(filename);// pass in a file string and generate Scene for
+            StageGenerator newstage = new StageGenerator();
+            scene = newstage.Scene("Team.txt");// pass in a file string and generate Scene for
                                                // display
-
-
             window = primaryStage;
             window.setScene(scene);
-            window.setTitle("New Tournament");
+            window.setTitle("Oracle Ultimate Tournament Bracket X");
             window.show();
-
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Warning");
@@ -72,8 +66,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         filename = args[0];    
         launch(args);
-
     }
-
-
 }
