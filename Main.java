@@ -43,7 +43,7 @@ public class Main extends Application {
        
         try {
             StageGenerator newstage = new StageGenerator();
-            scene = newstage.Scene("Team.txt");// pass in a file string and generate Scene for
+            scene = newstage.Scene(filename);// pass in a file string and generate Scene for
                                                // display
             window = primaryStage;
             window.setScene(scene);
