@@ -85,7 +85,7 @@ public class Tournament {
 	  * @param n the position where the teams of a respective rank will be indexed
 	  * @return the particular rank of a team with a particular rank
 	  */
-	 public static double seedHelper(int N, int n) {
+	 private static double seedHelper(int N, int n) {
 		 double d = Math.pow(2,N) + 1;
 		 if ( n == 2) { // the base case
 		 return d - 1;
