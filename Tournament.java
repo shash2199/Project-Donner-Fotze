@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+// assignment name: Tournament Bracket
+// Author: Theodore Montalbano Shashwat Srivastava
+// Partner: Griff Zhang, Jerry Yu, Tianyuan(Rainer) Yuan
+// Email : tmontalbano@wisc.edu, ssrivastav26@wisc.edu
+// due date: April 15th 2018
+// CS Login: shashwat@cs.wisc.edu, montalbano@cs.wisc.edu
+// Credits: Maulin Vasavada from: https://coderanch.com/t/371069/java/arrange-numbers
+// known bugs: none
+//////////////////////////////////////////////////////////////////////////////
 package application;
 /**
  * The Tournament class represents the tournament that is being played. 
